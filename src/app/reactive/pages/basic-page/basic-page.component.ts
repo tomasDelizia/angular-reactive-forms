@@ -32,8 +32,9 @@ export class BasicPageComponent {
   });
 
   isInvalidField(field: string): boolean | null {
-    //return this.form.controls[field].touched && this.form.controls[field].invalid;
-    return !!this.form.controls[field].errors;
+    return (
+      this.form.controls[field].touched && this.form.controls[field].invalid
+    );
   }
 
   getFieldError(field: string): string | null {
@@ -47,10 +48,22 @@ export class BasicPageComponent {
           return `Este campo debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
         case 'min':
           return `El valor mínimo es ${errors['min'].min}`;
-        default:
       }
     }
     return null;
+  }
+
+  onSave() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    console.log(this.form.value);
+    this.form.reset({
+      name: 'Coca Cola',
+      price: 10,
+      inStock: 500,
+    });
   }
 
   // form = new FormGroup({
