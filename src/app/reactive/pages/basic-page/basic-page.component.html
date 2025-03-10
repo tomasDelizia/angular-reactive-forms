@@ -80,6 +80,16 @@
     <span>Value</span>
     <pre>{{ form.value | json }}</pre>
 
+    <span>Errores de todo el formulario</span>
+    <pre>{{ form.errors | json }}</pre>
+
+    <span>Errores del campo name</span>
+    <pre>{{ form.controls.name.errors | json }}</pre>
+    <span>Errores del campo price</span>
+    <pre>{{ form.controls.price.errors | json }}</pre>
+    <span>Errores del campo inStock</span>
+    <pre>{{ form.controls.inStock.errors | json }}</pre>
+
     <span>Precio</span>
     <pre>{{ form.controls.price.value | json }}</pre>
 

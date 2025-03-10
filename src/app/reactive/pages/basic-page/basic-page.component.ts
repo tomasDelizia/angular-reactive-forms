@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-page',
@@ -15,13 +15,15 @@ export class BasicPageComponent {
       '',
       [
         /** Validadores síncronos */
+        Validators.required,
+        Validators.minLength(3),
       ],
       [
         /** Validadores asíncronos */
       ],
     ],
-    price: [0],
-    inStock: [0],
+    price: [0, [Validators.required, Validators.min(10)]],
+    inStock: [0, [Validators.required, Validators.min(0)]],
   });
 
   // form = new FormGroup({
