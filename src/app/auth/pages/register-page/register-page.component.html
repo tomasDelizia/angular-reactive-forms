@@ -19,9 +19,6 @@
             {{ formUtils.getFieldError(form, "name") }}
           </span>
           }
-          <!-- <span class="form-text text-danger">
-            Debe de ser en formato de nombre y apellido
-          </span> -->
         </div>
       </div>
 
@@ -58,9 +55,6 @@
             {{ formUtils.getFieldError(form, "username") }}
           </span>
           }
-          <!-- <span class="form-text text-danger">
-            El username no puede ser Strider
-          </span> -->
         </div>
       </div>
 
@@ -80,9 +74,6 @@
             {{ formUtils.getFieldError(form, "password") }}
           </span>
           }
-          <!-- <span class="form-text text-danger">
-            La contraseña debe de ser mayor de 6 caracteres.
-          </span> -->
         </div>
       </div>
 
@@ -102,10 +93,12 @@
             {{ formUtils.getFieldError(form, "password2") }}
           </span>
           }
-
-          <!-- <span class="form-text text-danger">
-            Las contraseñas deben de ser iguales
-          </span> -->
+          <!-- Error a nivel de formulario -->
+          @if(form.errors && form.touched) {
+          <span class="form-text text-danger">
+            Las contraseñas no coinciden
+          </span>
+          }
         </div>
       </div>
 
