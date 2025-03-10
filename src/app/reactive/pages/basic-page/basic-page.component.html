@@ -14,9 +14,9 @@
             placeholder="Nombre del producto"
             formControlName="name"
           />
-          @if(isInvalidField('name')) {
+          @if(this.formUtils.isInvalidField(form, 'name')) {
           <span class="form-text text-danger">
-            {{ getFieldError("name") }}
+            {{ this.formUtils.getFieldError(form, "name") }}
           </span>
           }
         </div>
@@ -32,9 +32,9 @@
             placeholder="Precio del producto"
             formControlName="price"
           />
-          @if(isInvalidField('price')) {
+          @if(formUtils.isInvalidField(form, 'price')) {
           <span class="form-text text-danger">
-            {{ getFieldError("price") }}
+            {{ formUtils.getFieldError(form, "price") }}
           </span>
           }
         </div>
@@ -51,9 +51,9 @@
             formControlName="inStock"
           />
 
-          @if(isInvalidField('inStock')) {
+          @if(formUtils.isInvalidField(form, 'inStock')) {
           <span class="form-text text-danger">
-            {{ getFieldError("inStock") }}
+            {{ this.formUtils.getFieldError(form, "inStock") }}
           </span>
           }
         </div>
