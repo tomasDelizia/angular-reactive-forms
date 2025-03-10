@@ -1,6 +1,11 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-page',
@@ -10,7 +15,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 export class BasicPageComponent {
   private fb = inject(FormBuilder);
 
-  form = this.fb.group({
+  form: FormGroup = this.fb.group({
     name: [
       '',
       [
@@ -25,6 +30,28 @@ export class BasicPageComponent {
     price: [0, [Validators.required, Validators.min(10)]],
     inStock: [0, [Validators.required, Validators.min(0)]],
   });
+
+  isInvalidField(field: string): boolean | null {
+    //return this.form.controls[field].touched && this.form.controls[field].invalid;
+    return !!this.form.controls[field].errors;
+  }
+
+  getFieldError(field: string): string | null {
+    if (!this.form.controls[field].errors) return null;
+    const errors = this.form.controls[field].errors ?? [];
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return 'Este campo es requerido';
+        case 'minlength':
+          return `Este campo debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
+        case 'min':
+          return `El valor mínimo es ${errors['min'].min}`;
+        default:
+      }
+    }
+    return null;
+  }
 
   // form = new FormGroup({
   //   name: new FormControl(''),
