@@ -30,7 +30,9 @@
           placeholder="Agregar favorito"
           [formControl]="newFavoriteGame"
           (keydown.enter)="onAddToFavorites()"
+          (keydown.enter)="$event.preventDefault()"
         />
+        <!-- Evitar llamar al ngSubmit del formulario con el preventDefault-->
 
         <button
           class="btn btn-outline-primary"
