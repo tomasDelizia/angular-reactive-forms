@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
   selector: 'app-dynamic-page',
@@ -15,12 +16,14 @@ import {
 })
 export class DynamicPageComponent {
   private fb = inject(FormBuilder);
+  formUtils = FormUtils;
+
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     favoriteGames: this.fb.array(
       [
-        ['Metal Gear Solid', Validators.required],
-        ['Ratchet & Clank', Validators.required],
+        ['Metal Gear Solid', [Validators.required, Validators.minLength(3)]],
+        ['Ratchet & Clank', [Validators.required, Validators.minLength(3)]],
       ],
       Validators.minLength(3)
     ),
