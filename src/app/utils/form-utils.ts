@@ -61,6 +61,11 @@ export class FormUtils {
     return { emailTaken: true };
   }
 
+  static notStrider(username: AbstractControl): ValidationErrors | null {
+    const value = username.value;
+    return value === 'strider' ? { notStrider: true } : null;
+  }
+
   private static getErrorMessage(errors: ValidationErrors): string | null {
     for (const key of Object.keys(errors)) {
       switch (key) {
@@ -74,6 +79,8 @@ export class FormUtils {
           return 'El email no es válido';
         case 'emailTaken':
           return 'El email ya está en uso';
+        case 'notStrider':
+          return 'El username no puede ser "strider"';
         case 'pattern':
           if (errors['pattern'].requiredPattern === FormUtils.namePattern) {
             return 'Ingrese su nombre completo';
