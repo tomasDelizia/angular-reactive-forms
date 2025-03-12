@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { combineLatest, map, Observable, of } from 'rxjs';
 import { Country } from '../interfaces/country.interfaces';
 
 @Injectable({
@@ -24,14 +24,17 @@ export class CountryService {
     );
   }
 
-  getCountryByAlphaCode(alphaCode: string): Observable<Country | null> {
-    if (!alphaCode) return of(null);
+  getCountryByAlphaCode(alphaCode: string): Observable<Country> {
     return this.http.get<Country>(
       `${this.baseUrl}/alpha/${alphaCode}?fields=name,cca3,borders`
     );
   }
 
-  getCountryBordersByCode(code: string) {
-    // TODO: Implementar lógica para obtener los países vecinos
+  getCountriesByCodes(codes: string[]): Observable<Country[]> {
+    if (!codes || codes.length === 0) return of([]);
+    const requests: Observable<Country>[] = [];
+    codes.forEach((code) => requests.push(this.getCountryByAlphaCode(code)));
+    // Devuelve todas las peticiones cuando hayan sido resueltas
+    return combineLatest(requests);
   }
 }
